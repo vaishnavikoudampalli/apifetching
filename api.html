@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joke Generator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #bc71bca5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        text-align: center;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+      }
+
+      h1 {
+        color: purple;
+        font-size: 24px;
+        margin-top: 0;
+      }
+
+      #joke-setup {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      #joke-punchline {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: purple;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: rgb(64, 15, 64);
+      }
+    </style>
+    <script>
+      function joke() {
+        let data = fetch("https://official-joke-api.appspot.com/random_joke");
+        data
+          .then((result) => {
+            result.json().then((res) => {
+              var setupElement = document.getElementById("joke-setup");
+              var punchlineElement = document.getElementById("joke-punchline");
+              setupElement.innerText = res.setup;
+              punchlineElement.innerText = res.punchline;
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Random Joke Generator</h1>
+      <div id="joke-setup"></div>
+      <div id="joke-punchline"></div>
+      <button onclick="joke()">Get Joke</button>
+    </div>
+  </body>
+</html>
